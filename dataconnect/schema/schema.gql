@@ -1,0 +1,41 @@
+type User @table {
+  email: String!
+  createdAt: Timestamp!
+  displayName: String
+  photoUrl: String
+}
+
+type LandingPage @table {
+  title: String!
+  urlSlug: String!
+  pageType: String!
+  published: Boolean!
+  createdAt: Timestamp!
+  updatedAt: Timestamp!
+  description: String
+  mainWebsiteLink: String
+  user: User
+}
+
+type ContentBlock @table {
+  blockType: String!
+  position: Int!
+  content: String
+  imageUrl: String
+  buttonText: String
+  buttonLink: String
+  landingPage: LandingPage
+}
+
+type FormSubmission @table {
+  submittedAt: Timestamp!
+  formData: String
+  landingPage: LandingPage
+}
+
+type PageAnalytics @table {
+  viewCount: Int!
+  lastViewedAt: Timestamp!
+  conversionCount: Int
+  landingPage: LandingPage
+}

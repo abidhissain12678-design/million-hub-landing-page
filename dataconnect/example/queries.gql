@@ -1,0 +1,59 @@
+query GetLandingPageById($id: UUID!) @auth(level: PUBLIC, insecureReason: "This query is designed to fetch public landing page content by ID.") {
+  landingPage(id: $id) {
+    id
+    title
+    urlSlug
+    pageType
+    description
+    published
+    mainWebsiteLink
+    createdAt
+    updatedAt
+    contentBlocks_on_landingPage(orderBy: [{position: ASC}]) {
+      blockType
+      position
+      content
+      imageUrl
+      buttonText
+      buttonLink
+    }
+  }
+}
+
+query ListPublishedLandingPages @auth(level: PUBLIC, insecureReason: "This operation is safe to expose to the public as it only lists published landing pages.") {
+  landingPages(where: {published: {eq: true}}) {
+    id
+    title
+    urlSlug
+    pageType
+    description
+    mainWebsiteLink
+    updatedAt
+  }
+}
+
+mutation CreateLandingPage($title: String!, $urlSlug: String!, $pageType: String!, $published: Boolean!, $description: String, $mainWebsiteLink: String) @auth(level: USER, insecureReason: "This operation allows authenticated users to create new landing pages.") {
+  landingPage_insert(data: {
+    title: $title,
+    urlSlug: $urlSlug,
+    pageType: $pageType,
+    published: $published,
+    description: $description,
+    mainWebsiteLink: $mainWebsiteLink,
+    createdAt_expr: "request.time",
+    updatedAt_expr: "request.time",
+    userId_expr: "auth.uid"
+  }) {
+    id
+  }
+}
+
+mutation SubmitLandingPageForm($landingPageId: UUID!, $formData: String!) @auth(level: PUBLIC, insecureReason: "This operation is intended for public form submissions on landing pages.") {
+  formSubmission_insert(data: {
+    landingPageId: $landingPageId,
+    formData: $formData,
+    submittedAt_expr: "request.time"
+  }) {
+    id
+  }
+}

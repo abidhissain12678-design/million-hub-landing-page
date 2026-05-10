@@ -1,0 +1,87 @@
+mutation CreateDemoData @transaction @auth(level: USER, insecureReason: "Seed data can be inserted by any logged-in user for demonstration purposes.") {
+  user_insertMany(data: [
+    {
+      id: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+      email: "john.doe@example.com",
+      createdAt: "2023-01-01T10:00:00Z",
+      displayName: "John Doe",
+      photoUrl: "https://example.com/john.jpg"
+    },
+    {
+      id: "b0eebc99-9c0b-4ef8-bb6d-6bb9bd380a22",
+      email: "jane.smith@example.com",
+      createdAt: "2023-01-02T11:00:00Z",
+      displayName: "Jane Smith",
+      photoUrl: "https://example.com/jane.jpg"
+    }
+  ])
+  landingPage_insertMany(data: [
+    {
+      id: "c0eebc99-9c0b-4ef8-bb6d-6bb9bd380a33",
+      title: "Welcome Page",
+      urlSlug: "welcome",
+      pageType: "homepage",
+      published: true,
+      createdAt: "2023-01-03T12:00:00Z",
+      updatedAt: "2023-01-03T12:00:00Z",
+      description: "This is the main welcome page.",
+      mainWebsiteLink: "https://example.com",
+      userId: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11"
+    },
+    {
+      id: "d0eebc99-9c0b-4ef8-bb6d-6bb9bd380a44",
+      title: "Product Landing",
+      urlSlug: "product-x",
+      pageType: "product",
+      published: true,
+      createdAt: "2023-01-04T13:00:00Z",
+      updatedAt: "2023-01-04T13:00:00Z",
+      description: "Information about Product X.",
+      mainWebsiteLink: "https://example.com/products/x",
+      userId: "b0eebc99-9c0b-4ef8-bb6d-6bb9bd380a22"
+    }
+  ])
+  contentBlock_insertMany(data: [
+    {
+      id: "e0eebc99-9c0b-4ef8-bb6d-6bb9bd380a55",
+      blockType: "hero",
+      position: 1,
+      content: "Discover amazing features!",
+      imageUrl: "https://example.com/hero.jpg",
+      buttonText: "Learn More",
+      buttonLink: "/features",
+      landingPageId: "c0eebc99-9c0b-4ef8-bb6d-6bb9bd380a33"
+    },
+    {
+      id: "f0eebc99-9c0b-4ef8-bb6d-6bb9bd380a66",
+      blockType: "text",
+      position: 2,
+      content: "Our product helps you achieve your goals.",
+      landingPageId: "d0eebc99-9c0b-4ef8-bb6d-6bb9bd380a44"
+    }
+  ])
+  formSubmission_insertMany(data: [
+    {
+      id: "11eebc99-9c0b-4ef8-bb6d-6bb9bd380a77",
+      submittedAt: "2023-01-05T14:00:00Z",
+      formData: "{\"name\": \"Alice\", \"email\": \"alice@example.com\"}",
+      landingPageId: "c0eebc99-9c0b-4ef8-bb6d-6bb9bd380a33"
+    }
+  ])
+  pageAnalytics_insertMany(data: [
+    {
+      id: "22eebc99-9c0b-4ef8-bb6d-6bb9bd380a88",
+      viewCount: 150,
+      lastViewedAt: "2023-01-06T15:00:00Z",
+      conversionCount: 5,
+      landingPageId: "c0eebc99-9c0b-4ef8-bb6d-6bb9bd380a33"
+    },
+    {
+      id: "33eebc99-9c0b-4ef8-bb6d-6bb9bd380a99",
+      viewCount: 200,
+      lastViewedAt: "2023-01-07T16:00:00Z",
+      conversionCount: 10,
+      landingPageId: "d0eebc99-9c0b-4ef8-bb6d-6bb9bd380a44"
+    }
+  ])
+}
